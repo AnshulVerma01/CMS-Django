@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cms',
-        'HOST': '4.tcp.ngrok.io',
-        'PORT': '14846',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
         'USER': 'root',
         'PASSWORD': '',
     }
