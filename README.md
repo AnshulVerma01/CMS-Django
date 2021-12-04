@@ -13,6 +13,7 @@
 * Users can also comment on the articles.
 
 ## Requirements
+* [Python](https://www.python.org/downloads/)
 * [XAMPP](https://www.apachefriends.org/download.html)
 * [VS Code (Or Any Other IDE)](https://code.visualstudio.com/download)
 * Django Framework
