@@ -34,3 +34,30 @@
 
   ```python manage.py runserver```
 * Open a web browser and type in the URL - ```127.0.0.1:8000```
+* Register to the website and use the credentials to Login.
+
+## Screenshots
+### Home Page
+![HomePage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/home.png)
+
+### Login Page
+![LoginPage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/login.png)
+
+### Register Page
+![RegisterPage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/register.png)
+
+### Dashboard
+![Dashboard](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/dashboard.png)
+
+### Explore Page
+![ExplorePage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/explore.png)
+
+### MyArticles Page
+![MyArticlesPage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/myarticles1.png)
+
+### Comments
+![Comments](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/comments.png)
+
+### Settings
+![Settings](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/settings.png)
+
