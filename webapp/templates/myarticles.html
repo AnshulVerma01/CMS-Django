@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>My Articles</title>
+    {% load static %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        a:link,
+        a:visited {
+            color: rgb(87, 0, 65);
+            background-color: transparent;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: rgb(255, 147, 206);
+            background-color: transparent;
+            text-decoration: none;
+        }
+        
+        .image {
+            width: 50%;
+        }
+        
+        .msg {
+            margin-top: 50%;
+            padding: 5px;
+            width: 30%;
+            margin: auto;
+            text-align: center;
+            font-size: 15px;
+            color: black;
+            background-color: white;
+            border-radius: 20px;
+        }
+        
+        .edit-text {
+            width: 83%;
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .avatar {
+            vertical-align: middle;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 5px solid #7a7a7a;
+            margin-bottom: 3%;
+        }
+        
+        @media(max-width: 700px) {
+            .image {
+                width: 100%;
+            }
+            .msg {
+                width: 40%;
+            }
+            .edit-text {
+                width: 50%;
+            }
+            .avatar {
+                width: 250px;
+                height: 250px;
+                margin-bottom: 10%;
+            }
+        }
+    </style>
+</head>
+
+<body class="myarticles">
+    {% load static %}
+    <img onclick="topFunction()" id="topbtn" src="{% static 'icon.png'%}" title="Goto Top"> {% for message in messages %}
+    <p class="msg" id="msg" style="margin-top: 20px;">{{message}}</p>
+    {% endfor %}
+    <nav>
+        <a href=""><img src=""></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="/dashboard">DASHBOARD</a></li>
+                <li><a href="/explore">EXPLORE</a></li>
+                <li><a href="/article">PUBLISH</a></li>
+                <li><a href="/myarticles">MY ARTICLES</a></li>
+                <li><a href="/logout">LOGOUT</a></li>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+    <div class="text-box1">
+        <h2 style="font-size: 50px; margin-bottom: 10px;">My Articles</h2>
+        {%for image in image%}<img class="avatar" src="{{image.profile_pic.url}}">{%endfor%}
+        <form method="post">
+            {% csrf_token %} {%for articles in data%}
+            <div class="comments-container" style="margin-top: -20px;margin-bottom: 40px;margin-left: auto;">
+                <div class="comment-box" style="width: 90%;margin:0 auto;">
+                    <div class="comment-head"><span style="color: rgb(87, 0, 65);">{{articles.publish_time}}</span><span class="edit-text"><a style="text-decoration: none;" href="/edit?title={{articles.title}}">Edit</a></span>
+                    </div>
+                    <div class="comment-content" style="font-weight:bold;font-size: 25px; padding: 5px;border-bottom: 1px solid #E5E5E5;"><a style="text-decoration: none;" href="/post?name={{articles.user}}&title={{articles.title}}">{{articles.title}}</a>
+                    </div>
+                    <div class="comment-content" style="border-bottom: 1px solid #E5E5E5;white-space: pre-wrap;text-align: justify;">{{articles.body}}</div>
+                    {%if articles.image%}
+                    <div class="comment-content"><img src="{{articles.image.url}}" class="image" /></div>
+                    {%endif%}
+                    <div class="comment-head" style="padding:3px;">
+                        <span><a style="color: #595959;" href="/post?name={{articles.user}}&title={{articles.title}}#link_here">Comments: {{articles.com_no}}</a></span>{%if articles.update_time != articles.publish_time%}<span style="float: right;">Last Updated On :{{articles.update_time}}</span>{%endif%}
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </form>
+        <div style="margin-bottom: 20px;margin-top: 10px;">
+            {%if data.has_previous%}
+            <a href="{%url 'myarticles'%}?page={{data.previous_page_number}}" class="red-btn" style="color: white;">Previous</a> {%endif%} {%if data.has_next%}
+            <a href="{%url 'myarticles'%}?page={{data.next_page_number}}" class="red-btn" style="color: white;">Next</a> {%endif%}
+        </div>
+    </div>
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <script>
+        $(window).on("load", function() {
+            $(".loader-wrapper").fadeOut("fast");
+        });
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+        setTimeout(function() {
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        }, 3000);
+
+        var mybutton = document.getElementById("topbtn");
+
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+</body>
+
+</html>

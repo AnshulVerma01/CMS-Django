@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Login Page</title>
+    {% load static %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}" />
+    <style>
+        .message {
+            margin-top: 36%;
+            text-align: center;
+            font-size: 15px;
+            color: black;
+            background-color: white;
+            border-radius: 20px;
+            padding: 10px 10px;
+            width: 20%;
+            margin-left: 39.5%;
+        }
+        
+        @media(max-width: 700px) {
+            .message {
+                width: 40%;
+                margin-left: 28%;
+                margin-top: 150%;
+            }
+        }
+    </style>
+</head>
+
+<body class="login">
+    <nav>
+        <a href=""><img src=""></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="/login">LOGIN</a></li>
+                <li><a href="/register">SIGN UP</a></li>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+    {% for message in messages %}
+    <p id="msg" class="message">{{message}}</p>
+    {% endfor %}
+    <div class="text-box" style="margin-top: 2%;">
+        <h1>Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div><input class="input" style="margin-top: 50px;" type="text" name="user" placeholder="Username" required="required" /></div>
+            <div><input id="input1" class="input" style="margin-top: 25px;margin-bottom: 30px;" type="password" name="password" placeholder="Password" required="required" /></div>
+            <div><button type="submit" class="blue-btn">Let me in.</button></div>
+        </form>
+        <p style="margin-top: 50px;margin-bottom: 25px;">Don't Have An Account?</p>
+        <a href="/register" type="submit" class="blue-btn">Sign Up.</a>
+    </div>
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <script>
+        $(window).on("load", function() {
+            $(".loader-wrapper").fadeOut("fast");
+        });
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+
+        $(function() {
+            $('#input1').on('keypress', function(e) {
+                if (e.which == 32) {
+                    console.log('Space Detected');
+                    return false;
+                }
+            });
+        });
+        setTimeout(function() {
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

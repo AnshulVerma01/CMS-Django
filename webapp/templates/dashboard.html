@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .avatar {
+            vertical-align: middle;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 5px solid #7a7a7a;
+            margin-top: 8.8%;
+            margin-left: -13%;
+        }
+        
+        .adjust {
+            left: 12%;
+            margin-top: 20px;
+        }
+        
+        .msg {
+            width: 20%;
+            margin-left: 40%;
+            text-align: center;
+            font-size: 15px;
+            color: black;
+            background-color: white;
+            border-radius: 20px;
+        }
+        
+        @media(max-width: 700px) {
+            .adjust {
+                left: 0;
+                top: 150px;
+                margin-top: 10px;
+            }
+            .avatar {
+                margin-top: -10%;
+                margin-left: 0;
+                width: 150px;
+                height: 150px;
+            }
+            .text-box h1 {
+                margin-top: -100px;
+            }
+            .text-box h2 {
+                font-size: 20px;
+            }
+            .msg {
+                width: 40%;
+                margin-left: 30%;
+            }
+        }
+    </style>
+</head>
+
+<body class="dashboard">
+    <div>.</div>
+    {% for message in messages %}
+    <div>
+        <p id="msg" class="msg">{{message}}</p>
+    </div>
+    {% endfor %} {%for image in image%}<img src="{{image.profile_pic.url}}" class="text-box avatar">{%endfor%}
+
+    <div class="text-box" style="margin-top: 20px;">
+        <h1>Dashboard</h1>
+        <h2>Hello {%for name in name%}{{name}}{%endfor%}, What Would You Like To Do?</h2>
+        <div><a href="/explore" class="red-btn adjust" style="margin-top: 50px;">Explore</a></div>
+        <div><a href="/article" class="red-btn adjust">Publish Article</a></div>
+        <div><a href="/myarticles" class="red-btn adjust">My Articles</a></div>
+        <div><a id="myBtn0" class="red-btn adjust">Settings</a></div>
+        <div><a href="/logout" class="red-btn adjust">Logout</a></div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="myModal0" class="modal">
+                <div class="modal-content">
+                    <span class="close0">&times;</span>
+                    <div>
+                        <h2 style="margin-bottom: 5px;margin-top: 60px;">Change Profile Picture</h2>
+                    </div>
+                    <div><input type="file" id="myFile" name="picture" style="margin-top: 10px; margin-bottom: 20px;margin-left: 22%;"></div>
+                    <div><button name="picchange" type="submit" class="blue-btn">Change</button></div>
+                    <div>
+                        <h2 style="margin-bottom: 5px;margin-top: 40px;">Change Password</h2>
+                    </div>
+                    <div><input class="input" id="input1" type="password" name="currentpassword" placeholder="Current Password" /></div>
+                    <div><input class="input" id="input1" style="margin-bottom: 30px;" type="password" name="newpassword" pattern=".{8,}" placeholder="New Password" /></div>
+                    <div><button name="passchange" type="submit" class="blue-btn">Change</button></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <script>
+        $(window).on("load", function() {
+            $(".loader-wrapper").fadeOut("fast");
+        });
+        var modal0 = document.getElementById("myModal0");
+        var span0 = document.getElementsByClassName("close0")[0];
+        var btn0 = document.getElementById("myBtn0");
+        btn0.onclick = function() {
+            modal0.style.display = "block";
+        }
+        span0.onclick = function() {
+            modal0.style.display = "none";
+        }
+        $(function() {
+            $('#input1').on('keypress', function(e) {
+                if (e.which == 32) {
+                    console.log('Space Detected');
+                    return false;
+                }
+            });
+        });
+        setTimeout(function() {
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        }, 3000);
+    </script>
+
+</body>
+
+</html>

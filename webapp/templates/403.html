@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Error 403</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .align {
+            width: 90%;
+            color: #fff;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .align h1 {
+            font-size: 70px;
+        }
+        
+        .align h2 {
+            font-size: 30px
+        }
+        
+        @media(max-width: 700px) {
+            .align {
+                margin-top: 45%;
+                margin-left: 30%;
+            }
+        }
+    </style>
+</head>
+
+<body class="error500">
+    <div class="align">
+        <h1>ERROR</h1>
+        <h2>Senpai! You're not allowed here.</h2>
+        <a href="/" class="red-btn" style="margin-top: 20px;">HOME</a>
+    </div>
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <script>
+        $(window).on("load", function() {
+            $(".loader-wrapper").fadeOut("fast");
+        });
+    </script>
+</body>
+
+</html>

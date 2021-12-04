@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Error 404</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .align {
+            width: 90%;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 17%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .align h1 {
+            font-size: 70px;
+        }
+        
+        .align h2 {
+            font-size: 30px
+        }
+        
+        .buttons {
+            color: #fff;
+            position: absolute;
+            top: 46%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            margin-left: 35%;
+        }
+        
+        @media(max-width: 700px) {
+            .align {
+                margin-top: -160px;
+                margin-left: 33%;
+            }
+            .buttons {
+                margin-top: 25%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="error404">
+    <div class="align">
+        <h1>Ummm...</h1>
+        <h2>This Page Doesn't Exist</h2>
+    </div>
+    <div class="buttons">
+        <a href="/" class="red-btn" style="margin-top: 20px;">HOME</a>
+        <a href="/login" class="red-btn" style="margin-top: 20px;">Login</a>
+        <a href="/register" class="red-btn" style="margin-top: 20px;">SignUp</a>
+    </div>
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <script>
+        $(window).on("load", function() {
+            $(".loader-wrapper").fadeOut("fast");
+        });
+    </script>
+</body>
+
+</html>

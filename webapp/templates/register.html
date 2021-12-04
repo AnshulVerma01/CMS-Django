@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>SignUp Page</title>
+    {% load static %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}" />
+    <style>
+        .message {
+            margin-top: 36%;
+            text-align: center;
+            font-size: 15px;
+            color: black;
+            background-color: white;
+            border-radius: 20px;
+            padding: 10px 10px;
+            width: 20%;
+            margin-left: 39.5%;
+        }
+        
+        @media(max-width: 700px) {
+            .message {
+                width: 40%;
+                margin-left: 28%;
+                margin-top: 150%;
+            }
+        }
+    </style>
+</head>
+
+<body class="register">
+    <nav>
+        <a href=""><img src=""></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="/login">LOGIN</a></li>
+                <li><a href="/register">SIGN UP</a></li>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+    {% for message in messages %}
+    <p id="msg" class="message">{{message}}</p>
+    {% endfor %}
+    <div class="text-box" style="margin-top: 2%;">
+        <h1 style="font-size: 50px;">Sign Up</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div><input class="input" style="margin-top: 10px;" type="text" name="name" placeholder="Full Name" required="required" /></div>
+            <div><input class="input" style="margin-top: 10px;" type="text" name="user" placeholder="Username" required="required" /></div>
+            <div><input class="input" style="margin-top: 10px;" type="email" name="email" placeholder="Email" required="required" /></div>
+            <div><input id="input1" class="input" style="margin-top: 10px;margin-bottom: 20px;" type="password" name="password" placeholder="Password" pattern=".{8,}" required="required" required title="8 characters minimum" /></div>
+            <div><button type="submit" class="blue-btn">Sign Up.</button></div>
+        </form>
+        <p style="margin-top: 20px;margin-bottom: 10px;">Already Have An Account?</p>
+        <a href="/login" type="submit" class="blue-btn">Sign In.</a>
+    </div>
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <script>
+        $(window).on("load", function() {
+            $(".loader-wrapper").fadeOut("fast");
+        });
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
+
+        $(function() {
+            $('#input1').on('keypress', function(e) {
+                if (e.which == 32) {
+                    console.log('Space Detected');
+                    return false;
+                }
+            });
+        });
+        setTimeout(function() {
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        }, 3000);
+    </script>
+</body>
+
+</html>

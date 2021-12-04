@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Post</title>
+    {% load static %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        a:link,
+        a:visited {
+            color: rgb(87, 0, 65);
+            background-color: transparent;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: rgb(255, 147, 206);
+            background-color: transparent;
+            text-decoration: none;
+        }
+        
+        .image {
+            width: 100%;
+        }
+        
+        .msg {
+            margin-top: 50%;
+            padding: 5px;
+            width: 30%;
+            margin: auto;
+            text-align: center;
+            font-size: 15px;
+            color: black;
+            background-color: white;
+            border-radius: 20px;
+        }
+        
+         ::placeholder {
+            color: black;
+            opacity: 80%;
+        }
+        
+        .ull {
+            margin-top: -4%;
+        }
+        
+        .btn0 {
+            float: right;
+            border-radius: 5px;
+            padding: 1px;
+            border: 1px solid rgb(128, 128, 128);
+        }
+        
+        .btn0:hover {
+            background-color: #919191;
+        }
+        
+        .edit-text {
+            width: 83%;
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        @media(max-width: 700px) {
+            .image {
+                width: 100%;
+            }
+            .msg {
+                width: 40%;
+            }
+            .edit-text {
+                width: 50%;
+            }
+            .ull {
+                margin-top: -10%;
+            }
+        }
+    </style>
+</head>
+
+<body class="post">
+    {% load static %}
+    <img onclick="topFunction()" id="topbtn" src="{% static 'icon.png'%}" title="Goto Top"> {% for message in messages %}
+    <p class="msg" id="msg" style="margin-top: 20px;">{{message}}</p>
+    {% endfor %}
+    <nav>
+        <a href=""><img src=""></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="/dashboard">DASHBOARD</a></li>
+                <li><a href="/explore">EXPLORE</a></li>
+                <li><a href="/article">PUBLISH</a></li>
+                <li><a href="/myarticles">MY ARTICLES</a></li>
+                <li><a href="/logout">LOGOUT</a></li>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+    <div class="text-box1">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="comments-container" style="margin-top: 50px;margin-left: auto;">
+                <div class="comment-box" style="width: 90%;margin:0 auto;">
+                    <div class="comment-head"><span style="color: rgb(87, 0, 65);">{{articles.publish_time}}</span>{%if current.user == articles.user%}<span class="edit-text"><a style="text-decoration: none;" href="/edit?title={{articles.title}}">Edit</a></span>{%endif%}
+                    </div>
+                    <div class="comment-content" style="font-weight:bold;font-size: 25px; padding: 5px;border-bottom: 1px solid #E5E5E5;"><a style="text-decoration: none;" href="">{{articles.title}}</a>
+                    </div>
+                    <div class="comment-content" style="border-bottom: 1px solid #E5E5E5;white-space: pre-wrap;text-align: justify;">{{articles.body}}</div>
+                    {%if articles.image%}
+                    <div class="comment-content"><img src="{{articles.image.url}}" class="image" /></div>
+                    {%endif%} {%if articles.update_time != articles.publish_time%}
+                    <div class="comment-head" style="padding:3px;"><span>Last Updated On :
+                            {{articles.update_time}}</span></div>{%endif%}
+                </div>
+            </div>
+        </form>
+        <h2 style="margin-bottom: -20px;margin-top: 50px;" id="link_here">Comments</h2>
+        {%for comment in comment%}
+        <div class="comments-container">
+            <ul id="comments-list" class="comments-list ull">
+                <li>
+                    <div class="comment-avatar">
+                        <a style="text-decoration: none;" href="/user?name={{comment.com_user}}"><img src="{{comment.profile_pic.url}}" alt="User"></a>
+                    </div>
+                    <div class="comment-box">
+                        <div class="comment-head">
+                            <h6 class="comment-name"><a href="/user?name={{comment.com_user}}">{{comment.com_user}}</a></h6>
+                            <form method="POST">{% csrf_token %}{%if current.user == comment.com_user%}<button name="delete" type="submit" class="btn0">Delete</button><input name="value" value="{{comment.id}}" style="display: none;">{%endif%}</form>
+                            <span style="color: rgb(9, 16, 107);">{{comment.publish_time}}</span>
+                        </div>
+                        <div class="comment-content" style="border-bottom: 1px solid #E5E5E5;white-space: pre-wrap;text-align: justify;">{{comment.body}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        {%endfor%}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="comments-container" style="margin-bottom: 100px;margin-top: 35px;">
+                <ul id="comments-list" class="comments-list">
+                    <li>
+                        <div class="comment-avatar">
+                            <a style="text-decoration: none;" href="/user?name={{current.user}}"><img src="{{current.profile_pic.url}}" alt="User"></a>
+                        </div>
+                        <div class="comment-box">
+                            <div class="comment-head" style="background-color: rgb(164, 183, 196);">
+                                <h6 class="comment-name"><a href="/user?name={{current.user}}">{{current.user}}</a></h6><button name="post" type="submit" class="btn0">Post</button>
+                            </div>
+                            <div class="comment-content" style="background-color: rgb(201, 201, 201);">
+                                <input name="body" style="background-color: rgb(201, 201, 201); width: 100%;height: 50%; border:transparent;font-size: 17px;outline: none;" placeholder="Add your Comment"></input>
+                            </div>
+                    </li>
+                </ul>
+                </div>
+        </form>
+        </div>
+        <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+        <script>
+            $(window).on("load", function() {
+                $(".loader-wrapper").fadeOut("fast");
+            });
+            var navLinks = document.getElementById("navLinks");
+
+            function showMenu() {
+                navLinks.style.right = "0";
+            }
+
+            function hideMenu() {
+                navLinks.style.right = "-200px";
+            }
+            setTimeout(function() {
+                if ($('#msg').length > 0) {
+                    $('#msg').remove();
+                }
+            }, 3000);
+
+            var mybutton = document.getElementById("topbtn");
+
+            window.onscroll = function() {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    mybutton.style.display = "block";
+                } else {
+                    mybutton.style.display = "none";
+                }
+            }
+
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
+        </script>
+</body>
+
+</html>
