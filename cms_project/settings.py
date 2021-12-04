@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-9&edehqc9_9b51nc)w6%=mq2vxjp+p__h+!%303^6fhmdoxfpg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','anime-community-cms.herokuapp.com']
 
 
 # Application definition
