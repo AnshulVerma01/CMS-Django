@@ -39,26 +39,26 @@
 
 ## Screenshots
 ### Home Page
-![HomePage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/home.png)
+![HomePage](https://github.com/aka-nikko/CMS-Django/blob/main/screenshots/home.png)
 
 ### Login Page
-![LoginPage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/login.png)
+![LoginPage](https://github.com/aka-nikko/CMS-Django/blob/main/screenshots/login.png)
 
 ### Register Page
-![RegisterPage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/register.png)
+![RegisterPage](https://github.com/aka-nikko/CMS-Django/blob/main/screenshots/register.png)
 
 ### Dashboard
-![Dashboard](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/dashboard.png)
+![Dashboard](https://github.com/aka-nikko/CMS-Django/blob/main/screenshots/dashboard.png)
 
 ### Explore Page
-![ExplorePage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/explore.png)
+![ExplorePage](https://github.com/aka-nikko/CMS-Django/blob/main/screenshots/explore.png)
 
 ### MyArticles Page
-![MyArticlesPage](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/myarticles1.png)
+![MyArticlesPage](https://github.com/aka-nikko/CMS-Django/blob/main/screenshots/myarticles1.png)
 
 ### Comments
-![Comments](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/comments.png)
+![Comments](https://github.com/aka-nikko/CMS-Django/blob/main/screenshots/comments.png)
 
 ### Settings
-![Settings](https://github.com/AnshulVerma01/CMS-Django/blob/main/screenshots/settings.png)
+![Settings](https://github.com/aka-nikko/CMS-Django/blob/main/screenshots/settings.png)
 
